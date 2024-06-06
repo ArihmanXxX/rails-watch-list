@@ -11,7 +11,7 @@ http.use_ssl = true
 
 request = Net::HTTP::Get.new(url)
 request['accept'] = 'application/json'
-request['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYTViYjZjNzg2MzczOGE3NTljYjU3ZWRiNWRlZjlkNSIsInN1YiI6IjY2NWRmMjAxYmMwZjU1ZmI1MmU0ZDg3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.N-9RuZQAxkTDW0dgxUGhEHOFOdp-eSPjhwEYSYKkl6Y'
+request['Authorization'] = 'SECRET_KEY'
 
 response = http.request(request)
 puts response.read_body
