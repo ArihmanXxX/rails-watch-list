@@ -1,0 +1,41 @@
+.card-show {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.card-show > img {
+  height: 400px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.card-show h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+
+.card-show p {
+  font-size: 22px;
+  text-align: center;
+  opacity: .7;
+  margin: 16px;
+}
+
+
+.card-show .card-show-infos {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+.card-show-infos .card-show-user {
+  position: absolute;
+  right: 16px;
+  top: -20px;
+  width: 40px;
+}

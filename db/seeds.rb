@@ -1,32 +1,29 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-Movie.create(
-  title: 'Wonder Woman 1984',
-  overview: 'Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s',
-  poster_url: 'https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg',
-  rating: 6.9)
+require 'uri'
+require 'net/http'
+require 'json'
 
-Movie.create(
-  title: 'The Shawshank Redemption',
-  overview: 'Framed in the 1940s for double murder, upstanding banker Andy Dufresne begins a new life at the Shawshank prison',
-  poster_url: 'https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
-  rating: 8.7)
+Movie.destroy_all
 
-Movie.create(
-  title: 'Titanic',
-  overview: '101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic.',
-  poster_url: 'https://image.tmdb.org/t/p/original/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg',
-  rating: 7.9)
+url = URI('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1')
 
-Movie.create(
-  title: 'Oceans Eight',
-  overview: 'Debbie Ocean, a criminal mastermind, gathers a crew of female thieves to pull off the heist of the century.',
-  poster_url: 'https://image.tmdb.org/t/p/original/MvYpKlpFukTivnlBhizGbkAe3v.jpg',
-  rating: 7.0)
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['accept'] = 'application/json'
+request['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYTViYjZjNzg2MzczOGE3NTljYjU3ZWRiNWRlZjlkNSIsInN1YiI6IjY2NWRmMjAxYmMwZjU1ZmI1MmU0ZDg3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.N-9RuZQAxkTDW0dgxUGhEHOFOdp-eSPjhwEYSYKkl6Y'
+
+response = http.request(request)
+puts response.read_body
+
+data = JSON.parse(response.read_body)
+
+data['results'].sample(10).each do |movie|
+  Movie.create(
+    title: movie['title'],
+    overview: movie['overview'],
+    poster_url: "https://image.tmdb.org/t/p/w500#{movie['backdrop_path']}",
+    rating: movie['vote_average']
+  )
+  end
+end
