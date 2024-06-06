@@ -33,5 +33,4 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-SECRET_KEY=Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYTViYjZjNzg2MzczOGE3NTljYjU3ZWRiNWRlZjlkNSIsInN1YiI6IjY2NWRmMjAxYmMwZjU1ZmI1MmU0ZDg3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.N-9RuZQAxkTDW0dgxUGhEHOFOdp-eSPjhwEYSYKkl6Y
 .env*
