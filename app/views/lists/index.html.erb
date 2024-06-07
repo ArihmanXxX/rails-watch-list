@@ -4,6 +4,7 @@
 <%= image_tag 'cinema.jpg', width: 'cover', alt: 'cinema' %>
 <h1>List of Movies</h1>
 
-<h3><%= link_to "All movies", movies_path %></h3>
-<%= link_to "Add Movie", new_movie_path(@movies) %>
-<%# <%= link_to "Add Bookmark", new_list_bookmark_path(@bookmark) %>
+<% @lists.each do |list| %>
+<h2><%= link_to list.name, list_path(list.id) %></h2>
+<% end %>
+<h2><%= link_to "New List", new_list_path %></h2>
